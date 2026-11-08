@@ -1,0 +1,46 @@
+<div class="avenora-guide" [class]="'avenora-guide state-' + state">
+  <div class="character-stage" role="img" [attr.aria-label]="characterName">
+    <div class="character">
+      <div class="character-hair"></div>
+
+      <div class="character-head">
+        <div class="hair-fringe"></div>
+
+        <div class="eyes">
+          <span class="eye"></span>
+          <span class="eye"></span>
+        </div>
+
+        <div class="cheeks">
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="smile"></div>
+      </div>
+
+      <div class="character-body">
+        <div class="shirt-star">✦</div>
+      </div>
+
+      <div class="character-arm arm-left"></div>
+      <div class="character-arm arm-right"></div>
+
+      <div class="character-legs">
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="character-backpack"></div>
+    </div>
+
+    <div class="character-shadow"></div>
+    <span class="character-sparkle sparkle-left">✦</span>
+    <span class="character-sparkle sparkle-right">✧</span>
+  </div>
+
+  <div class="speech-bubble" aria-live="polite">
+    <span class="bubble-name">{{ characterName }}</span>
+    <p>{{ message }}</p>
+  </div>
+</div>

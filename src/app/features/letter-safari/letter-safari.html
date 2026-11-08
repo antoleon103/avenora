@@ -1,0 +1,85 @@
+<main class="safari-page">
+  <header class="game-header">
+    <button class="back-button" (click)="backToExplore()">
+      ← Explore
+    </button>
+
+    <div class="game-title">
+      <span class="title-icon">🦋</span>
+      <div>
+        <h1>Letter Safari</h1>
+        <p>Find the letter and explore!</p>
+      </div>
+    </div>
+
+    <div class="round-count" *ngIf="!finished">
+      {{ currentRound + 1 }} / {{ rounds.length }}
+    </div>
+  </header>
+
+  <section class="game-card" *ngIf="!finished">
+    <div class="progress-track">
+      <div class="progress-fill" [style.width.%]="progress"></div>
+    </div>
+
+    <div class="question-area">
+      <p class="instruction">Can you find this letter?</p>
+
+      <div class="target-letter">
+        {{ round.target }}
+      </div>
+
+      <div class="picture-clue">
+        <span class="clue-emoji">{{ round.picture }}</span>
+        <span class="clue-word">{{ round.word }}</span>
+      </div>
+
+      <p class="choose-prompt">Tap the matching letter!</p>
+    </div>
+
+    <div class="letter-options">
+      <button
+        *ngFor="let letter of round.options"
+        class="letter-option"
+        [class.correct]="answered && letter === round.target"
+        [class.incorrect]="answered && letter === selectedLetter && letter !== round.target"
+        [disabled]="answered"
+        (click)="chooseLetter(letter)"
+      >
+        {{ letter }}
+      </button>
+    </div>
+
+    <div class="feedback" *ngIf="answered">
+      <p class="feedback-message" *ngIf="selectedLetter === round.target">
+        ⭐ Great job! You found {{ round.target }}!
+      </p>
+
+      <p class="feedback-message try-again" *ngIf="selectedLetter !== round.target">
+        Good try! The letter is {{ round.target }}. Let’s keep exploring!
+      </p>
+
+      <button class="next-button" (click)="nextRound()">
+        {{ currentRound === rounds.length - 1 ? 'See My Stars' : 'Next Letter →' }}
+      </button>
+    </div>
+  </section>
+
+  <section class="completion-card" *ngIf="finished">
+    <div class="completion-emoji">🌟</div>
+    <h2>Safari Complete!</h2>
+    <p>You explored all 5 letters!</p>
+
+    <div class="score-display">
+      <span>⭐</span>
+      <strong>{{ score }} / {{ rounds.length }}</strong>
+    </div>
+
+    <p class="completion-message">
+      Amazing learning! Keep discovering new letters.
+    </p>
+
+    <button class="next-button" (click)="restart()">Play Again</button>
+    <button class="secondary-button" (click)="backToExplore()">Back to Explore</button>
+  </section>
+</main>

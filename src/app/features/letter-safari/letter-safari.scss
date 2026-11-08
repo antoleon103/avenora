@@ -1,0 +1,282 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+.safari-page {
+  min-height: 100vh;
+  padding: 28px 20px 48px;
+  background: #fff9ed;
+  color: #302b46;
+  font-family: inherit;
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto 28px;
+}
+
+.back-button,
+.secondary-button {
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 16px;
+  background: #fff;
+  color: #51466f;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.game-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  h1 {
+    margin: 0;
+    font-size: 1.6rem;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: #827b91;
+  }
+}
+
+.title-icon {
+  font-size: 2.4rem;
+}
+
+.round-count {
+  font-weight: 800;
+  color: #7a60c8;
+}
+
+.game-card,
+.completion-card {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 28px;
+  border: 1px solid #f0e5d5;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 12px 35px rgb(71 52 100 / 8%);
+}
+
+.progress-track {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #eee8f7;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #a78bfa, #f3a6c8);
+  transition: width 250ms ease;
+}
+
+.question-area {
+  padding: 24px 0;
+  text-align: center;
+}
+
+.instruction {
+  margin: 0;
+  color: #827b91;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.target-letter {
+  display: grid;
+  width: 150px;
+  height: 150px;
+  margin: 18px auto;
+  place-items: center;
+  border-radius: 32px;
+  background: #f1eaff;
+  color: #7656c8;
+  font-size: 6rem;
+  font-weight: 900;
+}
+
+.picture-clue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.clue-emoji {
+  font-size: 2.5rem;
+}
+
+.clue-word {
+  color: #51466f;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.choose-prompt {
+  margin: 22px 0 0;
+  font-weight: 700;
+}
+
+.letter-options {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.letter-option {
+  width: 100px;
+  height: 100px;
+  border: 3px solid #e9e0f8;
+  border-radius: 24px;
+  background: #fff;
+  color: #51466f;
+  font-size: 3rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 150ms ease, background 150ms ease;
+}
+
+.letter-option:not(:disabled):hover {
+  transform: translateY(-4px);
+  background: #f8f3ff;
+}
+
+.letter-option.correct {
+  border-color: #72c99b;
+  background: #e8fff1;
+  color: #278451;
+}
+
+.letter-option.incorrect {
+  border-color: #f0a1a1;
+  background: #fff0f0;
+  color: #c34e4e;
+}
+
+.letter-option:disabled {
+  cursor: default;
+}
+
+.feedback {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.feedback-message {
+  color: #278451;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.feedback-message.try-again {
+  color: #93652b;
+}
+
+.next-button {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  border: 0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  background: #7b61c9;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.completion-card {
+  text-align: center;
+
+  h2 {
+    margin: 8px 0;
+    font-size: 2rem;
+  }
+
+  p {
+    color: #827b91;
+  }
+}
+
+.completion-emoji {
+  font-size: 4rem;
+}
+
+.score-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 0;
+  color: #7656c8;
+  font-size: 2rem;
+}
+
+.score-display span {
+  font-size: 2.5rem;
+}
+
+.completion-message {
+  margin-bottom: 24px;
+}
+
+.secondary-button {
+  margin-top: 12px;
+  background: #f2edfb;
+}
+
+@media (max-width: 600px) {
+  .safari-page {
+    padding: 18px 12px 32px;
+  }
+
+  .game-header {
+    flex-wrap: wrap;
+  }
+
+  .game-title h1 {
+    font-size: 1.25rem;
+  }
+
+  .game-card,
+  .completion-card {
+    padding: 20px 16px;
+  }
+
+  .target-letter {
+    width: 125px;
+    height: 125px;
+    font-size: 5rem;
+  }
+
+  .letter-options {
+    gap: 10px;
+  }
+
+  .letter-option {
+    width: 28vw;
+    max-width: 90px;
+    height: 90px;
+    font-size: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}

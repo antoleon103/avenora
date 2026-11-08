@@ -1,0 +1,98 @@
+<div class="activity-page">
+  <header class="activity-header">
+    <button class="back-button" type="button" (click)="backToExplore()">
+      ← Back
+    </button>
+
+    <div class="activity-title">
+      <span class="activity-icon">⭐</span>
+      <span>Count the Stars</span>
+    </div>
+
+    <div class="question-count">
+      {{ completed ? questions.length : currentQuestionIndex + 1 }}
+      / {{ questions.length }}
+    </div>
+  </header>
+
+  <main class="activity-content">
+    <div class="progress-track" aria-label="Activity progress">
+      <div
+        class="progress-fill"
+        [style.width.%]="completed ? 100 : progressPercentage"
+      ></div>
+    </div>
+
+    <section *ngIf="!completed" class="question-card">
+      <p class="activity-eyebrow">LET'S COUNT!</p>
+      <h1>How many stars do you see?</h1>
+      <p class="activity-instruction">Tap the number that matches the stars.</p>
+
+      <div class="stars-board" aria-label="Stars to count">
+        <span
+          *ngFor="let star of [].constructor(currentQuestion.stars)"
+          class="star"
+          aria-hidden="true"
+        >
+          ⭐
+        </span>
+      </div>
+
+      <div class="answer-options">
+        <button
+          *ngFor="let option of currentQuestion.options"
+          type="button"
+          class="answer-button"
+          [class.selected]="selectedAnswer === option"
+          [class.correct]="feedback === 'correct' && selectedAnswer === option"
+          [class.incorrect]="feedback === 'incorrect' && selectedAnswer === option"
+          [disabled]="feedback === 'correct'"
+          (click)="selectAnswer(option)"
+        >
+          {{ option }}
+        </button>
+      </div>
+
+      <div
+        *ngIf="feedback === 'incorrect'"
+        class="feedback incorrect-feedback"
+        role="status"
+      >
+        Not quite! Try counting the stars again.
+        <button type="button" (click)="tryAgain()">Try again</button>
+      </div>
+
+      <div
+        *ngIf="feedback === 'correct'"
+        class="feedback correct-feedback"
+        role="status"
+      >
+        <span>🎉 Great counting! You got it!</span>
+        <button type="button" (click)="nextQuestion()">
+          {{ currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next' }}
+        </button>
+      </div>
+    </section>
+
+    <section *ngIf="completed" class="completion-card">
+      <div class="completion-stars" aria-hidden="true">🌟 🎉 🌟</div>
+      <p class="activity-eyebrow">ACTIVITY COMPLETE</p>
+      <h1>You did amazing!</h1>
+      <p>You counted all the stars. Keep up the great work!</p>
+
+      <div class="score-display">
+        <span class="score-number">{{ correctAnswers }}</span>
+        <span>out of {{ questions.length }} stars earned</span>
+      </div>
+
+      <div class="completion-actions">
+        <button type="button" class="primary-button" (click)="restartActivity()">
+          Play again
+        </button>
+        <button type="button" class="secondary-button" (click)="backToExplore()">
+          Back to activities
+        </button>
+      </div>
+    </section>
+  </main>
+</div>

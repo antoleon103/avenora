@@ -1,0 +1,84 @@
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 5%;
+  background: #fff9f0;
+  border-bottom: 1px solid #eee5d9;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: #236b68;
+}
+
+.brand-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.brand-tagline {
+  margin-top: 0.3rem;
+  font-size: 0.7rem;
+  color: #29333d;
+}
+
+.desktop-nav,
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.desktop-nav a,
+.sign-in {
+  color: #29333d;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.desktop-nav a.active {
+  color: #236b68;
+}
+
+.get-started {
+  padding: 0.75rem 1.2rem;
+  border-radius: 999px;
+  background: #236b68;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.get-started:hover {
+  background: #195653;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .desktop-nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .header-actions {
+    gap: 0.8rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.65rem;
+  }
+}

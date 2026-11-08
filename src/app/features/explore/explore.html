@@ -1,0 +1,161 @@
+<main class="explore-page">
+  <!-- Page intro -->
+  <section class="explore-hero">
+    <div class="hero-content">
+      <span class="eyebrow">AVENORA LEARNING WORLD</span>
+
+      <h1>
+        What would you like to
+        <span>explore today?</span>
+      </h1>
+
+      <p>
+        Discover fun activities, exciting stories, and little challenges
+        made for curious minds.
+      </p>
+    </div>
+
+    <div class="hero-decoration" aria-hidden="true">
+      <span class="decoration-star star-one">✦</span>
+      <span class="decoration-star star-two">✧</span>
+      <span class="decoration-circle"></span>
+      <span class="decoration-sparkle">✦</span>
+    </div>
+  </section>
+
+  <!-- Age group selector -->
+  <section class="age-section" aria-labelledby="age-heading">
+    <div class="section-heading">
+      <div>
+        <span class="section-kicker">YOUR LEARNING JOURNEY</span>
+        <h2 id="age-heading">Choose your age group</h2>
+      </div>
+
+      <p>Activities that grow with you</p>
+    </div>
+
+    <div class="age-options">
+      <button
+        *ngFor="let age of ageGroups"
+        type="button"
+        class="age-option"
+        [class.active]="selectedAge === age.value"
+        [attr.aria-pressed]="selectedAge === age.value"
+        (click)="selectAge(age.value)"
+      >
+        <span class="age-number">{{ age.label }}</span>
+        <span class="age-description">{{ age.description }}</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Learning categories -->
+  <section class="categories-section" aria-labelledby="categories-heading">
+    <div class="section-heading">
+      <div>
+        <span class="section-kicker">LEARN SOMETHING NEW</span>
+        <h2 id="categories-heading">Explore by category</h2>
+      </div>
+    </div>
+
+    <div class="category-grid">
+      <button
+        *ngFor="let category of filteredCategories"
+        type="button"
+        class="category-card"
+        [class.selected]="selectedCategory === category.id"
+        [style.--category-color]="category.color"
+        [style.--category-soft]="category.softColor"
+        [attr.aria-pressed]="selectedCategory === category.id"
+        (click)="selectCategory(category.id)"
+      >
+        <span class="category-icon" aria-hidden="true">
+          {{ category.icon }}
+        </span>
+
+        <span class="category-name">{{ category.name }}</span>
+        <span class="category-description">{{ category.description }}</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Activities -->
+  <section class="activities-section" aria-labelledby="activities-heading">
+    <div class="section-heading activities-heading">
+      <div>
+        <span class="section-kicker">READY, SET, PLAY!</span>
+        <h2 id="activities-heading">
+          {{ selectedCategoryName }}
+        </h2>
+      </div>
+
+      <span class="activity-count">
+        {{ filteredActivities.length }} activities
+      </span>
+    </div>
+
+    <div
+      class="activity-grid"
+      *ngIf="filteredActivities.length; else noActivities"
+    >
+      <article
+        *ngFor="let activity of filteredActivities"
+        class="activity-card"
+        [style.--activity-color]="activity.color"
+      >
+        <div class="activity-art" [class]="activity.artClass">
+          <span class="activity-art-icon" aria-hidden="true">
+            {{ activity.icon }}
+          </span>
+
+          <span
+            class="art-decoration art-decoration-one"
+            aria-hidden="true"
+          ></span>
+
+          <span
+            class="art-decoration art-decoration-two"
+            aria-hidden="true"
+          ></span>
+
+          <span class="activity-level">{{ activity.level }}</span>
+        </div>
+
+        <div class="activity-content">
+          <div class="activity-meta">
+            <span>{{ activity.categoryName }}</span>
+            <span>{{ activity.duration }}</span>
+          </div>
+
+          <h3>{{ activity.title }}</h3>
+          <p>{{ activity.description }}</p>
+
+          <button
+            type="button"
+            class="play-button"
+            [class.coming-soon]="!activity.available"
+            [disabled]="!activity.available"
+            (click)="startActivity(activity)"
+          >
+            {{ activity.available ? 'Play Now' : 'Coming Soon' }}
+            <span aria-hidden="true">
+              {{ activity.available ? '→' : '🔒' }}
+            </span>
+          </button>
+        </div>
+      </article>
+    </div>
+
+    <ng-template #noActivities>
+      <div class="empty-state">
+        <span aria-hidden="true">🌱</span>
+        <h3>More adventures are growing!</h3>
+        <p>Try another category to discover more activities.</p>
+
+        <button type="button" (click)="selectCategory('all')">
+          View all activities
+        </button>
+      </div>
+    </ng-template>
+  </section>
+</main>
