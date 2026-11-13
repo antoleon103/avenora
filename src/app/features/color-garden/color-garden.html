@@ -1,0 +1,360 @@
+<main class="garden-page">
+
+  @if (!isGameStarted) {
+    <section class="welcome-screen">
+      <div class="welcome-content">
+        <div class="welcome-art">
+          <span class="welcome-flower">🎨</span>
+          <span class="welcome-sparkle sparkle-one">✦</span>
+          <span class="welcome-sparkle sparkle-two">✧</span>
+        </div>
+
+        <span class="eyebrow">AVENORA CREATIVE STUDIO</span>
+        <h1>Welcome to <span>Color Garden</span></h1>
+        <p>
+          Pick your favourite picture, choose your colours and create
+          something wonderful!
+        </p>
+
+        <div class="welcome-details">
+          <div>🌈 5 pictures</div>
+          <div>🎨 12 colours</div>
+          <div>💛 Endless creativity</div>
+        </div>
+
+        <button class="primary-button" (click)="startGame()">
+          Explore the Gallery <span>→</span>
+        </button>
+
+        <button class="back-link" (click)="goToExplore()">
+          ← Back to Explore
+        </button>
+      </div>
+    </section>
+  } @else if (!selectedPictureId) {
+    <header class="garden-header">
+      <button class="brand" (click)="goToExplore()">
+        <span class="brand-mark">✿</span>
+        avenora<span class="brand-dot">.</span>
+      </button>
+
+      <div class="header-center">
+        <span class="eyebrow">CREATIVE PLAY</span>
+        <h1>Color Garden</h1>
+      </div>
+
+      <button class="exit-button" (click)="goToExplore()">← Exit</button>
+    </header>
+
+    <section class="gallery-page">
+      <div class="gallery-heading">
+        <div>
+          <span class="eyebrow">YOUR LITTLE ART STUDIO</span>
+          <h2>Choose your <span>canvas</span></h2>
+          <p>Which picture would you like to colour today?</p>
+        </div>
+
+        <div class="gallery-count">
+          <strong>{{ completedPictures }}/{{ pictures.length }}</strong>
+          <span>Pictures completed</span>
+        </div>
+      </div>
+
+      <div class="picture-grid">
+        @for (picture of pictures; track picture.id) {
+          <button
+            class="picture-card"
+            (click)="selectPicture(picture.id)"
+          >
+            <div class="picture-art" [attr.data-picture]="picture.id">
+              <svg
+                class="gallery-illustration"
+                viewBox="0 0 300 190"
+                role="img"
+                [attr.aria-label]="picture.title + ' preview'"
+              >
+                @switch (picture.id) {
+                  @case ('flower') {
+                    <path d="M150 105 Q145 140 150 174" fill="none" stroke="#6f9a70" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M148 145 Q105 116 96 146 Q115 168 148 145Z" fill="#9bc79b" stroke="#668d6c" stroke-width="3"/>
+                    <path d="M151 155 Q190 125 205 151 Q187 172 151 155Z" fill="#b6d6a9" stroke="#668d6c" stroke-width="3"/>
+                    <g fill="#f6b4c5" stroke="#bd8295" stroke-width="3">
+                      <ellipse cx="150" cy="48" rx="19" ry="31"/>
+                      <ellipse cx="181" cy="72" rx="19" ry="31" transform="rotate(65 181 72)"/>
+                      <ellipse cx="169" cy="105" rx="19" ry="31" transform="rotate(140 169 105)"/>
+                      <ellipse cx="131" cy="105" rx="19" ry="31" transform="rotate(40 131 105)"/>
+                      <ellipse cx="119" cy="72" rx="19" ry="31" transform="rotate(-65 119 72)"/>
+                    </g>
+                    <circle cx="150" cy="78" r="21" fill="#ffd36e" stroke="#c69a43" stroke-width="3"/>
+                  }
+
+                  @case ('butterfly') {
+                    <path d="M145 87 C103 5 42 32 63 104 C77 151 121 139 145 101Z" fill="#c4afe9" stroke="#8975b6" stroke-width="3"/>
+                    <path d="M155 87 C197 5 258 32 237 104 C223 151 179 139 155 101Z" fill="#f4a9bd" stroke="#b97e91" stroke-width="3"/>
+                    <path d="M145 101 C105 105 82 139 111 163 C132 178 143 139 145 111Z" fill="#91c9ed" stroke="#6998b5" stroke-width="3"/>
+                    <path d="M155 101 C195 105 218 139 189 163 C168 178 157 139 155 111Z" fill="#ffd16c" stroke="#c49b45" stroke-width="3"/>
+                    <ellipse cx="150" cy="111" rx="9" ry="38" fill="#83b98b" stroke="#608b68" stroke-width="3"/>
+                    <path d="M146 76 Q126 28 111 31 M154 76 Q174 28 189 31" fill="none" stroke="#657b68" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="111" cy="31" r="6" fill="#a77b61"/>
+                    <circle cx="189" cy="31" r="6" fill="#a77b61"/>
+                    <circle cx="91" cy="91" r="9" fill="#ffd36e"/>
+                    <circle cx="209" cy="91" r="9" fill="#b6d6a9"/>
+                  }
+
+                  @case ('rainbow') {
+                    <circle cx="244" cy="37" r="22" fill="#ffd36e"/>
+                    <path d="M45 158 A105 105 0 0 1 255 158" fill="none" stroke="#f18c78" stroke-width="20"/>
+                    <path d="M65 158 A85 85 0 0 1 235 158" fill="none" stroke="#ffd16c" stroke-width="18"/>
+                    <path d="M83 158 A67 67 0 0 1 217 158" fill="none" stroke="#91c99e" stroke-width="17"/>
+                    <path d="M101 158 A49 49 0 0 1 199 158" fill="none" stroke="#8fc9ef" stroke-width="16"/>
+                    <path d="M119 158 A31 31 0 0 1 181 158" fill="none" stroke="#b9a5e8" stroke-width="15"/>
+                    <g fill="#fff" stroke="#d7dfd3" stroke-width="2">
+                      <circle cx="57" cy="150" r="19"/>
+                      <circle cx="78" cy="143" r="24"/>
+                      <circle cx="98" cy="153" r="18"/>
+                      <circle cx="202" cy="153" r="18"/>
+                      <circle cx="222" cy="143" r="24"/>
+                      <circle cx="243" cy="150" r="19"/>
+                    </g>
+                  }
+
+                  @case ('ocean') {
+                    <path d="M44 172 Q65 125 55 87 Q91 119 73 172Z" fill="#83b98b" stroke="#5f8d68" stroke-width="3"/>
+                    <path d="M255 172 Q236 124 253 83 Q278 123 255 172Z" fill="#a7d1a4" stroke="#5f8d68" stroke-width="3"/>
+                    <path d="M90 98 Q145 49 207 99 Q145 151 90 98Z" fill="#f6a27f" stroke="#b9785e" stroke-width="3"/>
+                    <path d="M94 98 L55 65 L55 131Z" fill="#ffd16c" stroke="#b9964c" stroke-width="3"/>
+                    <path d="M140 59 Q160 27 179 65Z" fill="#b9a5e8" stroke="#8975b6" stroke-width="3"/>
+                    <circle cx="185" cy="91" r="5" fill="#354b40"/>
+                    <circle cx="125" cy="100" r="11" fill="#fff" stroke="#d8a28b" stroke-width="2"/>
+                    <circle cx="83" cy="39" r="11" fill="#a6d7ed" stroke="#75a9bd" stroke-width="2"/>
+                    <circle cx="235" cy="57" r="8" fill="#a6d7ed" stroke="#75a9bd" stroke-width="2"/>
+                  }
+
+                  @case ('space') {
+                    <circle cx="57" cy="48" r="22" fill="#ffd16c" stroke="#c49b45" stroke-width="3"/>
+                    <circle cx="245" cy="47" r="18" fill="#9bd3b0" stroke="#6b9c7e" stroke-width="3"/>
+                    <path d="M150 20 L185 88 L115 88Z" fill="#f18c78" stroke="#b96c5d" stroke-width="3"/>
+                    <rect x="116" y="83" width="68" height="86" rx="27" fill="#fff" stroke="#849b9a" stroke-width="3"/>
+                    <path d="M116 137 L84 174 L116 163Z" fill="#8fc9ef" stroke="#6998b5" stroke-width="3"/>
+                    <path d="M184 137 L216 174 L184 163Z" fill="#b9a5e8" stroke="#8975b6" stroke-width="3"/>
+                    <circle cx="150" cy="112" r="15" fill="#8fc9ef" stroke="#6998b5" stroke-width="3"/>
+                    <path d="M45 103 L52 119 L69 126 L52 133 L45 150 L38 133 L21 126 L38 119Z" fill="#ffd16c"/>
+                    <path d="M252 112 L258 125 L272 131 L258 137 L252 151 L246 137 L232 131 L246 125Z" fill="#f6a6b8"/>
+                  }
+                }
+              </svg>
+
+              <span class="art-sparkle">✦</span>
+            </div>
+
+            <div class="picture-info">
+              <div>
+                <h3>{{ picture.title }}</h3>
+                <p>{{ picture.description }}</p>
+              </div>
+              <span class="picture-arrow">→</span>
+            </div>
+
+            @if (isPictureCompleted(picture)) {
+              <span class="completed-label">✓ Completed</span>
+            } @else if (hasPictureProgress(picture.id)) {
+              <span class="started-label">In progress</span>
+            }
+          </button>
+        }
+      </div>
+    </section>
+  } @else {
+    <header class="garden-header">
+      <button class="brand" (click)="goToExplore()">
+        <span class="brand-mark">✿</span>
+        avenora<span class="brand-dot">.</span>
+      </button>
+
+      <div class="header-center">
+        <span class="eyebrow">CREATIVE PLAY</span>
+        <h1>Color Garden</h1>
+      </div>
+
+      <button class="exit-button" (click)="backToGallery()">
+        ← Gallery
+      </button>
+    </header>
+
+    <section class="workspace">
+      <div class="workspace-heading">
+        <div>
+          <span class="eyebrow">YOUR LITTLE ART STUDIO</span>
+          <h2>Make it <span>colourful!</span></h2>
+          <p>{{ selectedPicture.description }}</p>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-info">
+            <span>Your progress</span>
+            <strong>{{ completedRegions }} / {{ totalRegions }}</strong>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="progress"></div>
+          </div>
+          <span class="progress-caption">{{ progress }}% completed</span>
+        </div>
+      </div>
+
+      <div class="studio-layout">
+        <section class="canvas-card">
+          <div class="canvas-topbar">
+            <div>
+              <span class="canvas-label">YOUR CANVAS</span>
+              <h3>{{ selectedPicture.icon }} {{ selectedPicture.title }}</h3>
+            </div>
+            <span class="canvas-status">
+              <span class="status-dot"></span>
+              {{ allColored ? 'Completed' : 'In progress' }}
+            </span>
+          </div>
+
+          <div class="drawing-area">
+
+            @switch (selectedPictureId) {
+              @case ('flower') {
+                <svg viewBox="0 0 360 420" class="drawing-svg" role="img" aria-label="Flower colouring picture">
+                  <path d="M180 205 Q170 285 180 365" fill="none" stroke="#526C58" stroke-width="9" stroke-linecap="round" pointer-events="none"/>
+                  <path d="M178 295 Q120 245 100 290 Q125 330 178 295Z" [attr.fill]="getRegionColor('leafOne')" (click)="fillRegion('leafOne')" class="color-region"/>
+                  <path d="M182 320 Q240 270 260 315 Q235 355 182 320Z" [attr.fill]="getRegionColor('leafTwo')" (click)="fillRegion('leafTwo')" class="color-region"/>
+                  <ellipse cx="180" cy="90" rx="35" ry="49" [attr.fill]="getRegionColor('petalOne')" (click)="fillRegion('petalOne')" class="color-region"/>
+                  <ellipse cx="224" cy="137" rx="35" ry="49" transform="rotate(65 224 137)" [attr.fill]="getRegionColor('petalTwo')" (click)="fillRegion('petalTwo')" class="color-region"/>
+                  <ellipse cx="207" cy="214" rx="35" ry="49" transform="rotate(140 207 214)" [attr.fill]="getRegionColor('petalThree')" (click)="fillRegion('petalThree')" class="color-region"/>
+                  <ellipse cx="134" cy="214" rx="35" ry="49" transform="rotate(40 134 214)" [attr.fill]="getRegionColor('petalFour')" (click)="fillRegion('petalFour')" class="color-region"/>
+                  <ellipse cx="105" cy="137" rx="35" ry="49" transform="rotate(-65 105 137)" [attr.fill]="getRegionColor('petalFive')" (click)="fillRegion('petalFive')" class="color-region"/>
+                  <circle cx="180" cy="169" r="39" [attr.fill]="getRegionColor('center')" (click)="fillRegion('center')" class="color-region"/>
+                </svg>
+              }
+
+              @case ('butterfly') {
+                <svg viewBox="0 0 360 360" class="drawing-svg" role="img" aria-label="Butterfly colouring picture">
+                  <path d="M172 150 Q145 105 132 82" fill="none" stroke="#526C58" stroke-width="5" stroke-linecap="round" pointer-events="none"/>
+                  <path d="M188 150 Q215 105 228 82" fill="none" stroke="#526C58" stroke-width="5" stroke-linecap="round" pointer-events="none"/>
+                  <circle cx="132" cy="82" r="12" [attr.fill]="getRegionColor('antennaLeft')" (click)="fillRegion('antennaLeft')" class="color-region"/>
+                  <circle cx="228" cy="82" r="12" [attr.fill]="getRegionColor('antennaRight')" (click)="fillRegion('antennaRight')" class="color-region"/>
+                  <path d="M175 178 C125 62 42 90 73 190 C91 247 142 229 175 194 Z" [attr.fill]="getRegionColor('leftTop')" (click)="fillRegion('leftTop')" class="color-region"/>
+                  <path d="M185 178 C235 62 318 90 287 190 C269 247 218 229 185 194 Z" [attr.fill]="getRegionColor('rightTop')" (click)="fillRegion('rightTop')" class="color-region"/>
+                  <path d="M175 195 C122 190 82 233 114 279 C140 312 165 258 175 211 Z" [attr.fill]="getRegionColor('leftBottom')" (click)="fillRegion('leftBottom')" class="color-region"/>
+                  <path d="M185 195 C238 190 278 233 246 279 C220 312 195 258 185 211 Z" [attr.fill]="getRegionColor('rightBottom')" (click)="fillRegion('rightBottom')" class="color-region"/>
+                  <ellipse cx="180" cy="190" rx="13" ry="55" [attr.fill]="getRegionColor('body')" (click)="fillRegion('body')" class="color-region"/>
+                  <circle cx="106" cy="169" r="13" [attr.fill]="getRegionColor('leftSpot')" (click)="fillRegion('leftSpot')" class="color-region"/>
+                  <circle cx="254" cy="169" r="13" [attr.fill]="getRegionColor('rightSpot')" (click)="fillRegion('rightSpot')" class="color-region"/>
+                </svg>
+              }
+
+              @case ('rainbow') {
+                <svg viewBox="0 0 360 360" class="drawing-svg" role="img" aria-label="Rainbow colouring picture">
+                  <circle cx="285" cy="65" r="38" [attr.fill]="getRegionColor('sun')" (click)="fillRegion('sun')" class="color-region"/>
+                  <path d="M45 260 A135 135 0 0 1 315 260 L285 260 A105 105 0 0 0 75 260 Z" [attr.fill]="getRegionColor('rainbowOne')" (click)="fillRegion('rainbowOne')" class="color-region"/>
+                  <path d="M75 260 A105 105 0 0 1 285 260 L255 260 A75 75 0 0 0 105 260 Z" [attr.fill]="getRegionColor('rainbowTwo')" (click)="fillRegion('rainbowTwo')" class="color-region"/>
+                  <path d="M105 260 A75 75 0 0 1 255 260 L225 260 A45 45 0 0 0 135 260 Z" [attr.fill]="getRegionColor('rainbowThree')" (click)="fillRegion('rainbowThree')" class="color-region"/>
+                  <path d="M135 260 A45 45 0 0 1 225 260 L195 260 A15 15 0 0 0 165 260 Z" [attr.fill]="getRegionColor('rainbowFour')" (click)="fillRegion('rainbowFour')" class="color-region"/>
+                  <path d="M165 260 A15 15 0 0 1 195 260 L165 260 Z" [attr.fill]="getRegionColor('rainbowFive')" (click)="fillRegion('rainbowFive')" class="color-region"/>
+                  <path d="M35 252 C25 215 70 202 91 230 C112 197 158 223 146 256 C140 276 59 278 35 252 Z" [attr.fill]="getRegionColor('cloudLeft')" (click)="fillRegion('cloudLeft')" class="color-region"/>
+                  <path d="M215 252 C205 215 250 202 271 230 C292 197 338 223 326 256 C320 276 239 278 215 252 Z" [attr.fill]="getRegionColor('cloudRight')" (click)="fillRegion('cloudRight')" class="color-region"/>
+                </svg>
+              }
+
+              @case ('ocean') {
+                <svg viewBox="0 0 360 360" class="drawing-svg" role="img" aria-label="Ocean colouring picture">
+                  <path d="M48 300 Q70 240 55 195 Q105 240 80 300 Z" [attr.fill]="getRegionColor('seaweedOne')" (click)="fillRegion('seaweedOne')" class="color-region"/>
+                  <path d="M295 300 Q270 240 310 195 Q320 250 295 300 Z" [attr.fill]="getRegionColor('seaweedTwo')" (click)="fillRegion('seaweedTwo')" class="color-region"/>
+                  <ellipse cx="180" cy="177" rx="80" ry="55" [attr.fill]="getRegionColor('fishBody')" (click)="fillRegion('fishBody')" class="color-region"/>
+                  <path d="M105 177 L52 128 L52 226 Z" [attr.fill]="getRegionColor('fishTail')" (click)="fillRegion('fishTail')" class="color-region"/>
+                  <path d="M175 126 Q195 83 222 130 Z" [attr.fill]="getRegionColor('fishFin')" (click)="fillRegion('fishFin')" class="color-region"/>
+                  <circle cx="224" cy="164" r="7" fill="#34483C" pointer-events="none"/>
+                  <circle cx="160" cy="177" r="16" [attr.fill]="getRegionColor('fishSpot')" (click)="fillRegion('fishSpot')" class="color-region"/>
+                  <circle cx="95" cy="72" r="18" [attr.fill]="getRegionColor('bubbleOne')" (click)="fillRegion('bubbleOne')" class="color-region"/>
+                  <circle cx="265" cy="94" r="13" [attr.fill]="getRegionColor('bubbleTwo')" (click)="fillRegion('bubbleTwo')" class="color-region"/>
+                </svg>
+              }
+
+              @case ('space') {
+                <svg viewBox="0 0 360 360" class="drawing-svg" role="img" aria-label="Space colouring picture">
+                  <path d="M180 45 L226 145 L134 145 Z" [attr.fill]="getRegionColor('rocketTip')" (click)="fillRegion('rocketTip')" class="color-region"/>
+                  <rect x="134" y="140" width="92" height="130" rx="35" [attr.fill]="getRegionColor('rocketBody')" (click)="fillRegion('rocketBody')" class="color-region"/>
+                  <path d="M134 225 L91 280 L134 265 Z" [attr.fill]="getRegionColor('rocketFinLeft')" (click)="fillRegion('rocketFinLeft')" class="color-region"/>
+                  <path d="M226 225 L269 280 L226 265 Z" [attr.fill]="getRegionColor('rocketFinRight')" (click)="fillRegion('rocketFinRight')" class="color-region"/>
+                  <circle cx="180" cy="190" r="21" [attr.fill]="getRegionColor('window')" (click)="fillRegion('window')" class="color-region"/>
+                  <circle cx="70" cy="105" r="31" [attr.fill]="getRegionColor('planetOne')" (click)="fillRegion('planetOne')" class="color-region"/>
+                  <circle cx="285" cy="95" r="25" [attr.fill]="getRegionColor('planetTwo')" (click)="fillRegion('planetTwo')" class="color-region"/>
+                  <path d="M70 40 L78 60 L98 68 L78 76 L70 96 L62 76 L42 68 L62 60 Z" [attr.fill]="getRegionColor('starOne')" (click)="fillRegion('starOne')" class="color-region"/>
+                  <path d="M290 185 L297 202 L314 209 L297 216 L290 233 L283 216 L266 209 L283 202 Z" [attr.fill]="getRegionColor('starTwo')" (click)="fillRegion('starTwo')" class="color-region"/>
+                </svg>
+              }
+            }
+
+            <span class="canvas-hint">👆 Tap a section to colour it</span>
+          </div>
+
+          @if (allColored) {
+            <div class="completion-message">
+              <span class="celebration-icon">🎉</span>
+              <strong>WOW! Amazing work!</strong>
+              <p>{{ compliment }}</p>
+              <div class="completion-actions">
+                <button class="primary-button" (click)="resetPicture()">Colour Again</button>
+                <button class="secondary-button" (click)="backToGallery()">Choose Another Picture</button>
+              </div>
+            </div>
+          }
+        </section>
+
+        <aside class="tools-card">
+          <div class="tools-heading">
+            <div>
+              <span class="eyebrow">PICK YOUR SHADE</span>
+              <h3>Colour palette</h3>
+            </div>
+            <span class="palette-icon">🎨</span>
+          </div>
+
+          <div class="selected-color-card">
+            <span class="selected-color-preview" [style.background]="selectedColor"></span>
+            <div>
+              <span>Selected colour</span>
+              <strong>{{ selectedColorName }}</strong>
+            </div>
+          </div>
+
+          <div class="color-grid">
+            @for (color of colors; track color.value) {
+              <button
+                class="color-swatch"
+                [class.selected]="selectedColor === color.value"
+                [style.background]="color.value"
+                [attr.aria-label]="color.name"
+                [title]="color.name"
+                (click)="selectColor(color.value)"
+              >
+                @if (selectedColor === color.value) {
+                  <span>✓</span>
+                }
+              </button>
+            }
+          </div>
+
+          <div class="palette-divider"></div>
+
+          <div class="tool-actions">
+            <button class="secondary-button" [class.active]="showReference" (click)="toggleReference()">
+              ✨ {{ showReference ? 'Hide Example' : 'Show Example' }}
+            </button>
+            <button class="reset-button" (click)="resetPicture()">↻ Start Over</button>
+          </div>
+
+          <div class="little-tip">
+            <span>💡</span>
+            <p>There are no wrong colours. Let your imagination lead the way!</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  }
+
+</main>

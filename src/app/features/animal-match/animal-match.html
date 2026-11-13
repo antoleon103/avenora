@@ -1,0 +1,214 @@
+
+<main class="animal-page">
+
+  <!-- Header -->
+  <header class="game-header">
+
+    <button
+      type="button"
+      class="back-button"
+      (click)="backToExplore()"
+    >
+      ← Explore
+    </button>
+
+    <div class="game-title">
+      <span class="title-icon">🐾</span>
+
+      <div>
+        <h1>Animal Match</h1>
+        <p>Drag the animal to its shadow!</p>
+      </div>
+    </div>
+
+    <div class="round-count" *ngIf="!finished">
+      {{ currentRound + 1 }} / {{ rounds.length }}
+    </div>
+
+  </header>
+
+  <!-- Game area -->
+  <section class="game-card" *ngIf="!finished">
+
+    <!-- Progress -->
+    <div class="progress-track">
+      <div
+        class="progress-fill"
+        [style.width.%]="progress"
+      ></div>
+    </div>
+
+    <!-- Target animal -->
+    <div class="question-area">
+
+      <p class="instruction">
+        Find the matching animal!
+      </p>
+
+      <h2>Where does the {{ round.name }} belong?</h2>
+
+      <!-- Drop zone -->
+      <div
+        #dropZone
+        class="drop-zone"
+        [class.drop-success]="answered"
+        [class.drop-error]="wrongAttempt"
+      >
+
+        <ng-container *ngIf="!answered; else matchedAnimal">
+
+          <span class="shadow-animal">
+            {{ round.emoji }}
+          </span>
+
+          <span class="drop-hint">
+            Drop the matching animal here
+          </span>
+
+        </ng-container>
+
+        <ng-template #matchedAnimal>
+
+          <span class="matched-animal">
+            {{ round.emoji }}
+          </span>
+
+          <span class="drop-hint success-hint">
+            Perfect match!
+          </span>
+
+        </ng-template>
+
+      </div>
+
+    </div>
+
+    <!-- Animal choices -->
+    <div class="animal-section">
+
+      <p class="choose-prompt">
+        <ng-container *ngIf="!answered">
+          Pick an animal and drag it here
+        </ng-container>
+
+        <ng-container *ngIf="answered">
+          Amazing! You matched the {{ round.name }}!
+        </ng-container>
+      </p>
+
+      <div class="animal-options">
+
+        <button
+          *ngFor="let animal of round.options"
+          type="button"
+          class="animal-card"
+          [class.dragging-source]="
+            dragging && currentDraggedEmoji === animal
+          "
+          [class.matched-card]="
+            answered && animal === round.emoji
+          "
+          [disabled]="answered"
+          (pointerdown)="startDrag($event, animal)"
+        >
+
+          <span class="animal-emoji">
+            {{ animal }}
+          </span>
+
+          <span class="animal-label">
+            {{ animal === '🐘' ? 'Elephant' :
+               animal === '🦁' ? 'Lion' :
+               animal === '🦒' ? 'Giraffe' :
+               animal === '🐵' ? 'Monkey' : 'Rabbit' }}
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Wrong answer feedback -->
+    <div class="feedback" *ngIf="wrongAttempt">
+
+      <p class="wrong-message">
+        Almost there! Try another animal. 💚
+      </p>
+
+    </div>
+
+    <!-- Correct answer feedback -->
+    <div class="feedback" *ngIf="answered">
+
+      <p class="success-message">
+        🌟 Wonderful! {{ round.description }}
+      </p>
+
+      <button
+        type="button"
+        class="next-button"
+        (click)="nextRound()"
+      >
+        {{ currentRound === rounds.length - 1
+          ? 'See My Results'
+          : 'Next Animal →' }}
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- Floating dragged animal -->
+  <div
+    class="drag-preview"
+    *ngIf="dragging"
+    [style.left.px]="dragPosition.x"
+    [style.top.px]="dragPosition.y"
+  >
+
+    {{ currentDraggedEmoji }}
+
+    <span>{{ draggedAnimalName }}</span>
+
+  </div>
+
+  <!-- Completion screen -->
+  <section class="completion-card" *ngIf="finished">
+
+    <div class="completion-emoji">
+      🏆
+    </div>
+
+    <h2>Animal Explorer!</h2>
+
+    <p>You matched all five animals!</p>
+
+    <div class="score-display">
+      <span>⭐</span>
+      <strong>{{ score }} / {{ rounds.length }}</strong>
+    </div>
+
+    <p class="completion-message">
+      Fantastic work! You're becoming an animal expert!
+    </p>
+
+    <button
+      type="button"
+      class="next-button"
+      (click)="restart()"
+    >
+      Play Again
+    </button>
+
+    <button
+      type="button"
+      class="secondary-button"
+      (click)="backToExplore()"
+    >
+      Back to Explore
+    </button>
+
+  </section>
+
+</main>

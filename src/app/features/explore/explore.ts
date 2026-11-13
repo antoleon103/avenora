@@ -176,6 +176,8 @@ export class Explore {
       icon: '🔺',
       color: '#E985B4',
       artClass: 'art-shapes',
+      route: '/activity/shape-builder',
+      available: true,
     },
     {
       id: 4,
@@ -189,6 +191,8 @@ export class Explore {
       icon: '🐘',
       color: '#7DBB91',
       artClass: 'art-animals',
+      route: '/activity/animal-match',
+      available: true,
     },
     {
       id: 5,
@@ -202,6 +206,8 @@ export class Explore {
       icon: '☁️',
       color: '#A18AE0',
       artClass: 'art-cloud',
+      available: true,
+      route: '/activity/the-little-cloud',
     },
     {
       id: 6,
@@ -215,6 +221,8 @@ export class Explore {
       icon: '🌷',
       color: '#E7B84F',
       artClass: 'art-garden',
+       route: '/activity/color-garden',
+      available: true,
     },
     {
       id: 7,
@@ -341,8 +349,16 @@ export class Explore {
    * Placeholder until the activity player route is implemented.
    */
   startActivity(activity: LearningActivity): void {
-  if (activity.available && activity.route) {
-    this.router.navigate([activity.route]);
+  console.log('Play Now clicked:', activity.title);
+  console.log('Navigating to:', activity.route);
+
+  if (!activity.available || !activity.route) {
+    console.warn('Activity is not available yet.');
+    return;
   }
+
+  this.router.navigateByUrl(activity.route).then((success) => {
+    console.log('Navigation successful:', success);
+  });
 }
 }

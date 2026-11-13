@@ -1,0 +1,128 @@
+
+<main class="shape-page">
+
+  <!-- Header -->
+  <header class="game-header">
+    <button class="back-button" (click)="backToExplore()">
+      ← Explore
+    </button>
+
+    <div class="game-title">
+      <span class="title-icon">🎨</span>
+      <div>
+        <h1>Shape Builder</h1>
+        <p>Discover the world of shapes!</p>
+      </div>
+    </div>
+
+    <div class="round-count" *ngIf="!finished">
+      {{ currentRound + 1 }} / {{ rounds.length }}
+    </div>
+  </header>
+
+  <!-- Game -->
+  <section class="game-card" *ngIf="!finished">
+
+    <div class="progress-track">
+      <div
+        class="progress-fill"
+        [style.width.%]="progress">
+      </div>
+    </div>
+
+    <div class="question-area">
+
+      <p class="instruction">
+        Look at the shape carefully!
+      </p>
+
+      <div class="target-shape">
+  <div class="shape-visual" [ngClass]="round.shapeClass"></div>
+</div>
+
+      <h2>What shape is this?</h2>
+
+      <p class="choose-prompt">
+        Choose the correct answer below
+      </p>
+
+    </div>
+
+    <!-- Shape options -->
+    <div class="shape-options">
+
+      <button
+        *ngFor="let shape of round.options"
+        class="shape-option"
+        [class.correct]="answered && shape === round.name"
+        [class.incorrect]="answered &&
+          shape === selectedShape &&
+          shape !== round.name"
+        [disabled]="answered"
+        (click)="chooseShape(shape)"
+      >
+        {{ shape }}
+      </button>
+
+    </div>
+
+    <!-- Feedback -->
+    <div class="feedback" *ngIf="answered">
+
+      <p
+        class="feedback-message"
+        *ngIf="selectedShape === round.name"
+      >
+        🌟 Wonderful! You found the {{ round.name }}!
+      </p>
+
+      <p
+        class="feedback-message try-again"
+        *ngIf="selectedShape !== round.name"
+      >
+        Good try! This is a {{ round.name }}. Keep learning!
+      </p>
+
+      <p class="shape-description">
+        {{ round.description }}
+      </p>
+
+      <button class="next-button" (click)="nextRound()">
+        {{ currentRound === rounds.length - 1
+          ? 'See My Results'
+          : 'Next Shape →' }}
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- Completion -->
+  <section class="completion-card" *ngIf="finished">
+
+    <div class="completion-emoji">🏆</div>
+
+    <h2>Shape Explorer!</h2>
+
+    <p>You discovered all five shapes!</p>
+
+    <div class="score-display">
+      <span>⭐</span>
+      <strong>{{ score }} / {{ rounds.length }}</strong>
+    </div>
+
+    <p class="completion-message">
+      Amazing work! You're becoming a shape expert!
+    </p>
+
+    <button class="next-button" (click)="restart()">
+      Play Again
+    </button>
+
+    <button class="secondary-button" (click)="backToExplore()">
+      Back to Explore
+    </button>
+
+  </section>
+
+</main>

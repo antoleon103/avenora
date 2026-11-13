@@ -1,0 +1,123 @@
+
+<main class="storybook">
+
+  <div class="sky-decoration cloud-one"></div>
+  <div class="sky-decoration cloud-two"></div>
+  <div class="sky-decoration cloud-three"></div>
+
+  <header class="storybook-header">
+    <a class="brand" routerLink="/explore" aria-label="Back to Explore">
+      <span class="brand-icon">✦</span>
+      <span>avenora</span>
+    </a>
+
+    <div class="story-label">
+      <span class="label-dot"></span>
+      A LITTLE STORY
+    </div>
+  </header>
+
+  @if (!isStoryStarted) {
+    <section class="welcome-screen">
+
+      <div class="hero-art">
+        <div class="sun-glow"></div>
+        <div class="sun">☀️</div>
+
+        <div class="floating-star star-one">✦</div>
+        <div class="floating-star star-two">✧</div>
+        <div class="floating-star star-three">✦</div>
+
+        <div class="main-cloud">
+          <div class="cloud-face">
+            <span class="eye"></span>
+            <span class="eye"></span>
+            <span class="cheek cheek-left"></span>
+            <span class="cheek cheek-right"></span>
+            <span class="smile"></span>
+          </div>
+        </div>
+
+        <div class="cloud-shadow"></div>
+      </div>
+
+      <div class="welcome-content">
+        <span class="eyebrow">A MAGICAL JOURNEY</span>
+
+        <h1>Meet the Little Cloud</h1>
+
+        <p>
+          High above the world, a little cloud has a big adventure waiting.
+          Shall we discover it together?
+        </p>
+
+        <div class="story-meta">
+          <span>☁️ Interactive story</span>
+          <span class="meta-divider"></span>
+          <span>◷ 5–7 minutes</span>
+        </div>
+
+        <button class="start-button" (click)="startStory()">
+          <span>Start the story</span>
+          <span class="button-arrow">→</span>
+        </button>
+
+        <span class="gentle-note">A little imagination goes a long way ✨</span>
+      </div>
+    </section>
+  } 
+@else {
+  <section class="story-scene">
+
+    <div class="scene-progress">
+      <span>YOUR STORY</span>
+      <span>SCENE {{ currentScene + 1 }} OF {{ scenes.length }}</span>
+    </div>
+
+    <div class="progress-track">
+      <div class="progress-fill" [style.width.%]="progress"></div>
+    </div>
+
+    <div class="scene-art">
+      <div class="scene-sun">☀️</div>
+      <div class="scene-cloud">{{ scenes[currentScene].illustration }}</div>
+      <div class="scene-bird bird-one">⌁</div>
+      <div class="scene-bird bird-two">⌁</div>
+    </div>
+
+    <div class="scene-content">
+      <span class="eyebrow">{{ scenes[currentScene].chapter }}</span>
+
+      <h1>{{ scenes[currentScene].title }}</h1>
+
+      <p>{{ scenes[currentScene].text }}</p>
+
+      @if (isLastScene) {
+  <div class="completion-actions">
+    <button class="start-button" (click)="restartStory()">
+      <span>Read Again</span>
+      <span class="button-arrow">↻</span>
+    </button>
+
+    <button class="explore-button" (click)="goToExplore()">
+      <span>Explore More</span>
+      <span class="button-arrow">→</span>
+    </button>
+  </div>
+} @else {
+  <button class="start-button" (click)="nextScene()">
+    <span>Next Chapter</span>
+    <span class="button-arrow">→</span>
+  </button>
+}
+
+    </div>
+  </section>
+}
+
+
+  <footer class="storybook-footer">
+    Made for little explorers <span>♥</span>
+  </footer>
+
+</main>
